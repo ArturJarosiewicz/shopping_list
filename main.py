@@ -17,4 +17,4 @@ for index, product in enumerate(lista):
 st.text_input(label='Wpisz produkt', on_change=functions.add_product, key='new_todo')
 
 
-# st.session_state
+st.session_state
