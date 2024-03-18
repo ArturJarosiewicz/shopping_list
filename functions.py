@@ -25,3 +25,4 @@ def add_product():
     lista = read_json()
     lista.append(product)
     write_to_json(lista)
+    st.session_state["new_todo"] = ''
