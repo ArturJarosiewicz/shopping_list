@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+import sqlite3
 
 
 def read_json(filepath="list.json"):
@@ -26,3 +27,27 @@ def add_product():
     lista.append(product)
     write_to_json(lista)
     st.session_state["new_todo"] = ''
+
+
+def read_db_current():
+    """
+    Return items from current item list from db
+    """
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+
+    cur.execute('select * from current_list')
+    result = cur.fetchall()
+    return result
+
+
+def read_db_archive():
+    """
+    Return items from archive item list from db
+    """
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+
+    cur.execute('select * from archive_items')
+    result = cur.fetchall()
+    return result
