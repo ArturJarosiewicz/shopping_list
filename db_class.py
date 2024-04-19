@@ -26,10 +26,10 @@ class DbManager:
 
     def add_item_db(self):
         item = st.session_state['new_todo']
-        self.cur.execute("INSERT INTO current_list VALUES(?, 1)", item)
+        self.cur.execute("INSERT INTO current_list VALUES(?, 1)", (item, ))
         self.conn.commit()
         st.session_state["new_todo"] = ''
 
     def del_item(self, item_name_arg):
-        self.cur.execute("DELETE FROM current_list WHERE item_name=?", item_name_arg)
+        self.cur.execute("DELETE FROM current_list WHERE item_name=?", (item_name_arg, ))
         self.conn.commit()
