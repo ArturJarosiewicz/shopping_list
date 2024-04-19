@@ -29,35 +29,3 @@ def add_product():
     st.session_state["new_todo"] = ''
 
 
-def read_db_current():
-    """
-    Return items from current item list from db
-    """
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
-
-    cur.execute('select * from current_list')
-    result = cur.fetchall()
-    return result
-
-
-def read_db_archive():
-    """
-    Return items from archive item list from db
-    """
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
-
-    cur.execute('select * from archive_items')
-    result = cur.fetchall()
-    return result
-
-
-def add_item_db():
-    item = st.session_state['new_todo']
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
-    cur.execute("INSERT INTO current_list VALUES(?, 1)", item)
-    conn.commit()
-    st.session_state["new_todo"] = ''
-
