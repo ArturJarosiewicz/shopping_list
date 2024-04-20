@@ -1,6 +1,6 @@
 import streamlit as st
 import sqlite3
-
+from datetime import datetime
 
 class DbManager:
 
@@ -35,7 +35,14 @@ class DbManager:
         self.conn.commit()
 
     def send_to_archive(self, item_name_arg):
-        self.cur.execute("INSERT INTO archive_items (item_name)"
-                         "SELECT item_name FROM current_list"
-                         "WHERE item_name=?", (item_name_arg,))
+        date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        self.cur.execute("INSERT INTO archive_items VALUES (?,?)", (item_name_arg, date))
+        self.conn.commit()
+
+    def clear_archive(self):
+        self.cur.execute("DELETE FROM archive_items")
+        self.conn.commit()
+
+    def clear_current(self):
+        self.cur.execute("DELETE FROM current_items")
         self.conn.commit()
